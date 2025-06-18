@@ -70,3 +70,89 @@ Si quieres borrar todo y empezar de nuevo:
 DROP DATABASE datos_movilidad;
 DROP USER user1;
 ```
+
+# 🔎 1. Consultas básicas
+Obtener los primeros 10 registros:
+```sql
+SELECT * FROM transacciones LIMIT 10;
+````
+Ver cuántas transacciones hay:
+```sql
+SELECT COUNT(*) FROM transacciones;
+```
+Ver los distintos tipos de tarjeta:
+```sql
+SELECT DISTINCT tipo_tarjeta FROM transacciones;
+```
+# 📅 2. Consultas por fecha
+Transacciones realizadas en un día específico:
+```sql
+SELECT * 
+FROM transacciones 
+WHERE fecha_hora_transaccion::date = '2025-06-07';
+```
+Rango de fechas:
+```sql
+SELECT * 
+FROM transacciones 
+WHERE fecha_hora_transaccion BETWEEN '2025-06-01' AND '2025-06-07';
+```
+# 📊 3. Agregaciones y estadísticas
+Total de transacciones por línea:
+```sql
+SELECT linea, COUNT(*) AS total_transacciones 
+FROM transacciones 
+GROUP BY linea 
+ORDER BY total_transacciones DESC;
+```
+Saldo promedio antes de la transacción por tipo de tarjeta:
+```sql
+SELECT tipo_tarjeta, AVG(saldo_antes_transaccion) AS saldo_promedio
+FROM transacciones
+GROUP BY tipo_tarjeta
+ORDER BY saldo_promedio DESC;
+```
+Suma de montos por día:
+```sql
+SELECT fecha_hora_transaccion::date AS fecha, SUM(monto_transaccion) AS total_monto
+FROM transacciones
+GROUP BY fecha
+ORDER BY fecha;
+```
+# 🚍 4. Consultas por ruta o estación
+Transacciones por estación específica (ej. estación 16):
+```sql
+SELECT * FROM transacciones WHERE estacion = 16;
+```
+Top 5 rutas más utilizadas:
+```sql
+SELECT ruta, COUNT(*) AS total
+FROM transacciones
+GROUP BY ruta
+ORDER BY total DESC
+LIMIT 5;
+```
+# 🧪 5. Consultas de control y diagnóstico
+Transacciones donde el saldo después es negativo o nulo (posibles errores):
+```sql
+SELECT * 
+FROM transacciones 
+WHERE saldo_despues_transaccion <= 0;
+Fila con el monto de transacción más alto:
+```
+```sql
+SELECT * 
+FROM transacciones 
+ORDER BY monto_transaccion DESC 
+LIMIT 1;
+```
+# 🧩 6. Consultas de contrato
+Transacciones con contratos válidos actualmente (fecha actual dentro de la vigencia):
+```sql
+SELECT * 
+FROM transacciones 
+WHERE contract_validity_start_date IS NOT NULL
+  AND contract_validity_duration > 0
+  AND CURRENT_DATE BETWEEN contract_validity_start_date 
+                      AND contract_validity_start_date + contract_validity_duration;
+```
