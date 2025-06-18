@@ -1,0 +1,50 @@
+Quiero que generes consultas SQL para una base de datos de PostgreSQL que contiene información de transacciones de movilidad. Te comparto el esquema completo de la tabla `transacciones`, que está dentro de la base de datos `datos_movilidad`.
+
+La tabla `transacciones` tiene las siguientes columnas (con sus tipos):
+
+- id_transaccion_organismo: BIGINT
+- provider: INT
+- tipo_tarjeta: INT
+- numero_serie_hex: VARCHAR(50)
+- fecha_hora_transaccion: TIMESTAMP
+- linea: INT
+- estacion: INT
+- autobus: VARCHAR(10)
+- ruta: INT
+- equipo: INT
+- tipo_equipo: INT
+- location_id: TEXT
+- tipo_transaccion: INT
+- saldo_antes_transaccion: INT
+- monto_transaccion: INT
+- saldo_despues_transaccion: INT
+- perfil1: INT
+- perfil2: INT
+- perfil3: INT
+- sam_serial_hex_ultima_recarga: VARCHAR(50)
+- sam_serial_hex: VARCHAR(50)
+- contador_recargas: INT
+- contador_validaciones: INT
+- event_log: TEXT
+- load_log: TEXT
+- purchase_log: TEXT
+- mac: TEXT
+- counter_value: INT
+- counter_amount: INT
+- sam_counter: INT
+- environment: TEXT
+- environment_issuer_id: TEXT
+- contract: TEXT
+- contract_tariff: INT
+- contract_sale_sam: TEXT
+- contract_restrict_time: INT
+- contract_validity_start_date: DATE
+- contract_validity_duration: INT
+
+Con base en esta estructura, dame una consulta SQL que haga lo siguiente:  
+[🔽 Aquí describes lo que necesitas, por ejemplo:]
+
+- Mostrar las transacciones realizadas el 7 de junio de 2025
+- Calcular el saldo promedio antes de la transacción por línea
+- Obtener las 10 rutas más utilizadas
+- Mostrar todos los datos donde el saldo después de la transacción es 0 o negativo
