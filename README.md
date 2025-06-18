@@ -71,7 +71,28 @@ DROP DATABASE datos_movilidad;
 DROP USER user1;
 ```
 
+# Como usar la BD
+
 # 🔎 1. Consultas básicas
+
+Conectarse a la base de datos
+Abre tu terminal (o psql en Windows desde el menú de inicio si instalaste PostgreSQL con PgAdmin) y ejecuta:
+
+```bash
+psql -U user1 -d datos_movilidad
+```
+
+📌 Nota: Si PostgreSQL te pide contraseña, escribe password1 (o la que hayas definido).
+
+Una vez dentro, verás algo como:
+
+```text
+datos_movilidad=#
+```
+
+Ya estás dentro del cliente interactivo de PostgreSQL y puedes ejecutar SQL directamente.
+
+
 Obtener los primeros 10 registros:
 ```sql
 SELECT * FROM transacciones LIMIT 10;
